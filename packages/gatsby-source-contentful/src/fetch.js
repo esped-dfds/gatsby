@@ -108,7 +108,9 @@ ${formatPluginOptionsForCLI(pluginConfig.getOriginalPluginOptions(), errors)}`)
 
   // Fix IDs (inline) on entries and assets, created/updated and deleted.
   contentTypeItems.forEach(normalize.fixIds)
-  currentSyncData.entries.forEach(normalize.fixIds)
+  currentSyncData.entries.forEach(
+    currentSyncData.entries.length > 10000 ? normalize.fixIds2 : normalize.fixIds
+  )
   currentSyncData.assets.forEach(normalize.fixIds)
   currentSyncData.deletedEntries.forEach(normalize.fixIds)
   currentSyncData.deletedAssets.forEach(normalize.fixIds)

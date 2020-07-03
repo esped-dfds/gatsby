@@ -53,6 +53,15 @@ exports.fixId = fixId
 const shouldBeSkipped = (object, alreadyWalkedObjectRefs) =>
   !object || typeof object !== `object` || alreadyWalkedObjectRefs.has(object)
 
+exports.fixIds2 = (object) => {
+  if (!object || typeof object !== `object`) return
+  const { sys } = object
+  if (sys) {
+    sys.contentful_id = sys.id
+    sys.id = fixId(sys.id)
+  }
+}
+
 // Walk the object model and find any property named `sys`. If it
 // contains an `id` then make sure the id is a string and if it starts with a
 // number, prefix it with (an arbitrarily chosen) `c`, for "contentful".
